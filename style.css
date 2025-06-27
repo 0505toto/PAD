@@ -1,0 +1,215 @@
+/* ===== Google Fontsの読み込み ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+
+/* ===== 基本設定とカラーパレット ===== */
+:root {
+    --bg-color: #f4f7f9;          /* 背景色 */
+    --main-color: #ffffff;        /* カードなどのメイン背景色 */
+    --accent-color: #00529b;      /* アクセントカラー (青系) */
+    --accent-color-light: #e6f3ff;/* 薄いアクセントカラー */
+    --text-color: #333333;        /* 基本の文字色 */
+    --sub-text-color: #666666;    /* 少し薄い文字色 */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* 影の色 */
+    --icon-color: #007bff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* ===== 全体のコンテナ ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ===== ヘッダーとフッター ===== */
+.site-header, .site-footer {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, var(--accent-color), #003f76);
+    color: white;
+}
+.site-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+.site-footer {
+    margin-top: 40px;
+    padding: 20px;
+    font-size: 0.9rem;
+    background: #333;
+}
+
+/* ===== セクションタイトル ===== */
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--accent-color-light);
+    color: var(--accent-color);
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+/* ===== カードのグリッドレイアウト ===== */
+.card-grid, .card-grid-small, .widget-section {
+    display: grid;
+    gap: 25px;
+}
+
+/* 大きいカード用: 1-3列のレスポンシブ */
+.card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+/* 小さいカード用: 2-4列のレスポンシブ */
+.card-grid-small {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+/* ウィジェット用: 1-2列のレスポンシブ */
+.widget-section {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* ===== カードの基本スタイルとアニメーション ===== */
+.card {
+    background-color: var(--main-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    padding: 25px;
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    
+    /* アニメーションの初期状態（透明で少し下にいる） */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); /* 少しリッチな動き */
+}
+
+/* マウスホバー時のエフェクト */
+a.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 82, 155, 0.2);
+    color: var(--accent-color);
+}
+
+/* JavaScriptによって .visible クラスが付いた時のスタイル（アニメーション発火） */
+.card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* カード内の要素 */
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+.card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+.card p {
+    font-size: 0.9rem;
+    color: var(--sub-text-color);
+    flex-grow: 1; /* pタグを伸ばして高さを揃える */
+}
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: var(--icon-color);
+}
+.card-icon-small {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--icon-color);
+}
+
+
+/* ===== ウィジェット固有のスタイル ===== */
+
+/* 天気ウィジェット */
+#weather-widget .card-content {
+    padding: 0;
+}
+.weather-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+.weather-main .fa-solid {
+    font-size: 3rem;
+}
+.weather-desc {
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--sub-text-color);
+}
+.weather-sub {
+    margin-top: 10px;
+    text-align: right;
+    color: var(--sub-text-color);
+}
+
+/* 検索ウィジェット */
+#search-widget .card-content {
+    padding: 0;
+}
+#google-search-form {
+    display: flex;
+}
+#google-search-form input {
+    flex-grow: 1;
+    border: 2px solid #ddd;
+    border-radius: 8px 0 0 8px;
+    padding: 12px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+#google-search-form input:focus {
+    border-color: var(--accent-color);
+}
+#google-search-form button {
+    border: none;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0 20px;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+#google-search-form button:hover {
+    background-color: #003f76;
+}
+
+
+/* ===== スマートフォン用の調整 ===== */
+@media (max-width: 768px) {
+    .site-header h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    .card {
+        padding: 20px;
+    }
+}
